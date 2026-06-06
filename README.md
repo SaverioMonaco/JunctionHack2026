@@ -23,9 +23,9 @@
 <img src="tikz/outline_vertical.svg" height="500">
 
 **Speedups:**
-* **Quantum Fast Forwarding**: 
-* **Chayma**:  
-* **Greek aware settlement**: Exponential reduction in the number of qubits
+* **Quantum Fast Forwarding**:
+* **MLMC+Quantum**:  
+* **Greek aware settlement**: Exponential reduction in the number of qubits.
 
 **Future directions**
 * Quantum Logic for application of the payout function

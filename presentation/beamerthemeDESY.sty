@@ -78,7 +78,7 @@
 		\renewcommand{\@DESYlogo}{mainlogo}
 		\setbeamercolor{block title}{fg=white,bg=desybluedark}
 		\setbeamercolor{block body}{fg=white,bg=desybluedark}
-		\setbeamercolor{frametitle}{fg=desybluedark}
+		\setbeamercolor{frametitle}{fg=desygray}
 		\setbeamercolor{framesubtitle}{fg=desyorangedark}
 		\usebeamercolor[fg]{normal text}
 	}{}
@@ -125,9 +125,9 @@
 \setlength{\titlemanualoffset}{0ex}
 % Define frame title and subtitle layout
 \setbeamertemplate{frametitle}{%
-	\vspace*{-3.75ex}
+	\vspace*{1ex}
 	\vspace*{\titlemanualoffset}
-	\begin{beamercolorbox}[leftskip=1cm]{frametitle}%
+	\begin{beamercolorbox}[leftskip=.1cm]{frametitle}%
 		\usebeamerfont{frametitle}\insertframetitle\\
 		% Setting an invisible placeholder subtitle will fix the title in a constant position
 		% This is due to the way the default template is defined in `beamerouterthemedefault.sty'
