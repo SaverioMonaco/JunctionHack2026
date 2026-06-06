@@ -1,0 +1,18 @@
+# PCE settlement — v1 NumPy + COBYLA core (runs end-to-end on a laptop)
+numpy>=1.24
+scipy>=1.10
+matplotlib>=3.6
+
+# Exact ILP baseline for M > 24 (falls back to brute force for small M)
+pulp>=2.7
+
+# v2 JAX/PennyLane hardware layer (see PCE_settlement_plan_v2.md)
+pennylane>=0.38
+jax>=0.4
+jaxlib
+optax
+# For real Braket hardware submission (not needed for sim / QASM export):
+# amazon-braket-pennylane-plugin
+
+# Dev
+# pytest>=8

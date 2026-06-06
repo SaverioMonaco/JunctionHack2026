@@ -16,7 +16,7 @@
 * CLASSICAL: $S(0)$: Prepare the data at time 0 
 * Computing the matured distribution:
   - QUANTUM Fast Forwarding:
-  - QUANTUM: Chayma
+  - QUANTUM: Non-Fast-Forward Quantum MLMC (Asian option pricing via Quantum Amplitude Estimation + MLMC hierarchy)
 * CLASSICAL: Payoff Calculation
 * QUANTUM: Greek aware settlement
 
