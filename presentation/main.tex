@@ -1,0 +1,81 @@
+\documentclass{beamer}
+\usepackage{squantikz}
+\usepackage[normalem]{ulem}
+
+\usepackage{listings}
+\usetheme{desy}
+
+\usepackage{amsfonts,amsmath,oldgerm}
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{overlay-beamer-styles}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}
+
+% Show section numbers in TOC
+\setbeamertemplate{section in toc}{%
+\leavevmode%
+  \hspace{1cm}%
+  \inserttocsectionnumber.~\inserttocsection\par
+}
+
+% Set font size and make bold
+\setbeamerfont{section in toc}{size=\large,series=\bfseries}
+
+\newcommand{\hrefcol}[2]{\textcolor{uihteal}{\href{#1}{#2}}}
+\newcommand{\testcolor}[1]{\colorbox{#1}{\textcolor{#1}{test}}~\texttt{#1}}
+
+% Please see Section 18.1 of Beamer User Guide for all the options \usefonttheme provides
+\usefonttheme[onlymath]{serif}
+% \usefonttheme{serif} % use this if you would like Serif font throughout (and not just for math)
+
+
+\title{Track 1 (Op Pohjola)}
+\subtitle{New Horizons in Quantum Finance}
+
+% This can be adjusted accordingly for longer titles
+\setlength{\titleboxwidth}{0.55\textwidth}
+
+\author{Chayma Farajii, Saverio Monaco, Clément Perrochaud, Mathurin Verclytte}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+% \themecolor{dark}
+% \frame{\frametitle{Outline}
+% 	\tableofcontents
+% }
+% \themecolor{light}
+
+\input{chaps/dummy}
+
+% ========== BACKUP START ==========
+\appendix
+\backupbegin
+
+\input{chaps/thanks}
+% \input{chaps/backup}
+
+\nocite{*}
+\themecolor{dark}
+\begin{frame}[allowframebreaks] % let bibliography split across slides
+	% \frametitle{References}
+	\bibliographystyle{unsrt}
+	\bibliography{references}
+\end{frame}
+\themecolor{light}
+
+\backupend
+
+
+\end{document}

@@ -1,0 +1,57 @@
+% Fork of the UIC Beamer presentation template
+% Original template by Usama Muneeb <umunee2@uic.edu>
+%
+% This fork includes modifications for DESY-style presentations,
+% including TikZ-based chapter backgrounds and key-value frame options.
+%
+% The original template itself is derived from the SINTEF template
+% by Federico Zenith <federico.zenith@sintef.no>, which in turn
+% descends from Håvard Berland's beamerthementnu class.
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+% See the GNU General Public License for more details:
+% <http://www.gnu.org/licenses/>
+%
+% Modifications by Saverio Monaco
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{desycolor}[2023/04/26]
+
+\RequirePackage{xcolor}
+
+% -----------------------------
+% DESY COLORS
+% -----------------------------
+\definecolor{desyorange}{RGB}{243, 142, 0} % #F28E00
+\definecolor{desyorangedark}{RGB}{230, 120, 0} % #E67800
+\definecolor{desyblue}{RGB}{0, 166, 235}  % rgb(0, 166, 253)
+\definecolor{desybluedark}{RGB}{0, 140, 220}   % #00A6EB
+\definecolor{desybluedarkdark}{RGB}{0, 140, 220}   %rgb(0, 106, 212)
+% \definecolor{desyorange}{RGB}{200, 20, 60} %rgb(200, 20, 60)
+% \definecolor{desyorangedark}{RGB}{200, 20, 60} %rgb(200, 20, 60)
+% \definecolor{desyblue}{RGB}{19, 0, 141}   %rgb(19, 0, 141)
+% \definecolor{desybluedark}{RGB}{19, 0, 141}  %rgb(19, 0, 141)
+\definecolor{bdark}{RGB}{19, 0, 141}   %rgb(19, 0, 141)
+\definecolor{desygray}{RGB}{60, 60, 60} % #777777
+\definecolor{softdark}{RGB}{60, 60, 60} % #3C3C3C
+
+% Primary Colors
+\definecolor{uicblue}{RGB/cmyk}{0,30,98/100,94,30,28} % Navy Pier Blue
+\definecolor{uicred}{RGB/cmyk}{213,0,50/10,100,86,2} % Fire Engine Red
+
+% Neutral Colors
+\definecolor{expowhite}{RGB/cmyk}{242,247,235/5,3,8,0}
+\definecolor{steelgray}{RGB/cmyk}{50,50,50/0,0,0,80}
+\colorlet{steelgrey}{steelgray}
+
+% Secondary Colors
+\definecolor{chicagoblue}{RGB/cmyk}{65,182,230/65,3,0,0}
+\definecolor{championsgold}{RGB/cmyk}{255,191,63/0,22,83,0}
+\definecolor{uihteal}{RGB/cmyk}{0,133,173/92,14,8,11}

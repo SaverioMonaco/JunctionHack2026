@@ -1,0 +1,339 @@
+%!TEX root = ./main.tex
+% Fork of the UIC Beamer presentation template
+% Original template by Usama Muneeb <umunee2@uic.edu>
+%
+% This fork includes modifications for DESY-style presentations,
+% including TikZ-based chapter backgrounds and key-value frame options.
+%
+% The original template itself is derived from the SINTEF template
+% by Federico Zenith <federico.zenith@sintef.no>, which in turn
+% descends from Håvard Berland's beamerthementnu class.
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+% See the GNU General Public License for more details:
+% <http://www.gnu.org/licenses/>
+%
+% Modifications by Saverio Monaco
+
+\ProvidesPackage{beamerthemedesy}[2025/09/11]
+
+\RequirePackage{etoolbox}
+\RequirePackage{tikz}
+\usepackage{tikz}        % for TikZ graphics
+\usepackage{pgfkeys}     % for key-value parsing (TikZ already loads it, but safe)
+\usepackage{xifthen}     % optional, for easier \ifempty checks
+\usepackage{lmodern}
+\usepackage{fontawesome}
+
+% Force 16:9 aspect ratio
+\RequirePackage{geometry}
+\geometry{paperwidth=16cm,paperheight=9cm}
+
+\RequirePackage{desyfont}
+\renewcommand{\familydefault}{\sfdefault}
+
+\RequirePackage{graphicx,desycolor}
+
+% No navigation symbols
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{page number in head/foot}[totalframenumber]%
+
+\newcommand{\@footlinepayoff}{\usebeamertemplate{page number in head/foot}}
+\setbeamertemplate{footline}{%
+	\begin{beamercolorbox}[wd=\textwidth,ht=3mm,dp=1mm,rightskip=.5cm]{footline}
+		\usebeamerfont{footline}\hfill\@footlinepayoff
+	\end{beamercolorbox}
+}
+
+\pgfdeclareimage[width=0.065\paperwidth]{mainlogo}{../assets/junction.pdf}
+\pgfdeclareimage[width=0.065\paperwidth]{whitelogo}{../assets/junction_white.pdf}
+\newcommand{\@DESYlogo}{mainlogo}
+\newcommand{\@DESYlogowhite}{whitelogo}
+
+% Set colours
+% NOTE! Beamer colors should be set in the preamble. It often works fine in the 
+%       document itself, but NOT for normal text foreground.
+%       \themecolor should only be called from the preamble.
+\newcommand{\themecolor}[1]{
+	\ifstrequal{#1}{dark}{%
+		\setbeamercolor{normal text}{fg=white,bg=desygray}
+		\setbeamercolor{structure}{fg=white}
+		\renewcommand{\@DESYlogo}{whitelogo}
+		\setbeamercolor{block title}{fg=uicblue,bg=steelgray}
+		\setbeamercolor{block body}{fg=uicblue,bg=steelgray}
+		\setbeamercolor{frametitle}{fg=white}
+		\setbeamercolor{framesubtitle}{fg=white}
+		\usebeamercolor[fg]{normal text}
+	}{}
+	\ifstrequal{#1}{light}{%
+		\setbeamercolor{normal text}{fg=uicblue,bg=white}
+		\setbeamercolor{structure}{fg=uicblue}
+		\renewcommand{\@DESYlogo}{mainlogo}
+		\setbeamercolor{block title}{fg=white,bg=desybluedark}
+		\setbeamercolor{block body}{fg=white,bg=desybluedark}
+		\setbeamercolor{frametitle}{fg=desybluedark}
+		\setbeamercolor{framesubtitle}{fg=desyorangedark}
+		\usebeamercolor[fg]{normal text}
+	}{}
+}
+\themecolor{light}
+
+\setbeamercolor{title}{fg=desyorangedark,bg=white}
+\setbeamercolor{alerted text}{fg=desybluedark}
+\setbeamercolor{author}{fg=black}
+\setbeamercolor{date}{fg=black}
+\setbeamercolor{footline}{fg=white,bg=desygray}
+
+\setbeamerfont{author}{series=\bfseries}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{title}{series=\bfseries, size=\LARGE}
+\setbeamerfont{subtitle}{series=\mdseries,size=\Large}
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamerfont{framesubtitle}{series=\mdseries}
+\setbeamerfont{footline}{size=\scriptsize}
+\setbeamerfont{block title}{series=\centering\bfseries}
+
+% Code to get prettier boxes
+\setbeamertemplate{blocks}[rounded]
+
+% Bullets in several levels
+\setbeamertemplate{itemize item}{\textbullet}
+\setbeamertemplate{itemize subitem}{\textemdash}
+\setbeamertemplate{itemize subsubitem}{\ensuremath{\circ}}
+
+\newenvironment{colorblock}[3][white]{%
+	\begingroup
+	\setbeamercolor{block title}{fg=#1,bg=#2}
+	\setbeamercolor{block body} {fg=#1,bg=#2}
+	\begin{block}{#3}
+		}{%
+	\end{block}
+	\endgroup
+}
+
+% Put the logo in each slide's top left area
+\setbeamertemplate{headline}{\vspace{0.03\textwidth}\hspace{0.03\textwidth}\pgfuseimage{\@DESYlogo}}
+
+\newlength{\titlemanualoffset}
+\setlength{\titlemanualoffset}{0ex}
+% Define frame title and subtitle layout
+\setbeamertemplate{frametitle}{%
+	\vspace*{-3.75ex}
+	\vspace*{\titlemanualoffset}
+	\begin{beamercolorbox}[leftskip=1cm]{frametitle}%
+		\usebeamerfont{frametitle}\insertframetitle\\
+		% Setting an invisible placeholder subtitle will fix the title in a constant position
+		% This is due to the way the default template is defined in `beamerouterthemedefault.sty'
+		\ifx\insertframesubtitle\empty
+			\usebeamerfont{framesubtitle}\usebeamercolor[bg]{normal text}Placeholder
+		\else
+			\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle
+		\fi
+	\end{beamercolorbox}
+}
+
+\newcommand{\TikzSplitSlideTikz}[4]{%
+	% #1 = filename
+	% #2 = size (scale factor)
+	% #3 = x position
+	% #4 = y position
+	\rule{0.4\paperwidth}{0pt}%
+	\begin{tikzpicture}
+		\color{black}
+		\clip (-0.1\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth, 0.5\paperheight) --
+		( 0.1\paperwidth, 0.5\paperheight) -- cycle;
+		\fill[color=desyorange!60] (-0.1\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth, 0.5\paperheight) --
+		( 0.1\paperwidth, 0.5\paperheight) -- cycle;
+		\fill[color=white] (-0.075\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth, 0.5\paperheight) --
+		( 0.1\paperwidth, 0.5\paperheight) --
+		( 0.005\paperwidth, 0.5\paperheight) -- cycle;
+		\node at (#3,#4) {%
+			\scalebox{#2}{#1}%
+		};
+	\end{tikzpicture}
+}
+
+\newcommand{\TikzSplitSlideTitle}{%
+	\rule{0.4\paperwidth}{0pt}%
+	\begin{tikzpicture}
+		\clip (-0.1\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth, 0.5\paperheight) --
+		( 0.1\paperwidth, 0.5\paperheight) -- cycle;
+		\fill[color=desybluedark] (-0.1\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth, 0.5\paperheight) --
+		( 0.1\paperwidth, 0.5\paperheight) -- cycle;
+		% \fill[color=white, opacity=.6]
+		% (-.2\paperwidth,-.65\paperheight) rectangle ++(15,3);
+	\end{tikzpicture}
+}
+
+\newlength{\titleboxwidth}
+\setbeamertemplate{title page}{%
+	\begin{tikzpicture}[overlay]
+		\node (a) at (0, 0) {};
+		\node[color=desybluedarkdark, anchor=west, text width = 12cm] (tit) at (0, 0) {\color{desyorangedark}\usebeamerfont{title}\inserttitle\par};
+		\node[anchor=west] (sub) at ([yshift=-1cm]tit.west) {\usebeamerfont{subtitle}\insertsubtitle\par};
+		\node[anchor=west] (auth) at ([yshift=-1cm]sub.west) {\usebeamerfont{author}\insertauthor};
+		\node[anchor=west] (group) at ([yshift=-.7cm]auth.west) {a.k.a \textbf{QUBIBARAs}};
+		\node[anchor=west] (date) at ([yshift=-1cm]group.west) {\usebeamerfont{date}\insertdate};
+		\node (l1) at ([xshift=2cm, yshift=2cm]tit.west) {\includegraphics[height=.5cm]{../assets/junction.pdf}};
+		\node (l2) at ([xshift=1cm, yshift=0cm]l1.east) {\includegraphics[height=1cm]{../assets/OP_Financial_Group.pdf}};
+		\node (l3) at ([xshift=12cm, yshift=0cm]date) {\includegraphics[height=2cm]{../assets/capybara.jpeg}};
+	\end{tikzpicture}
+}
+
+\newbool{splittitle}
+\newcommand{\@TitleBackground}{}
+\newcommand{\titlebackground}{\@ifstar{\SplitBackground}{\FullBackground}}
+\newcommand{\FullBackground}[1]{\renewcommand{\@TitleBackground}{#1}}
+\newcommand{\SplitBackground}[1]{%
+	\booltrue{splittitle}%
+	\renewcommand{\@TitleBackground}{#1}%
+
+	% a white titlebox is needed on a full background, but looks bad on
+	% a split background (and is not needed when left half is already white)
+	% we therefore set titlebox background to transparent for split backgrounds
+	\setbeamercolor{title}{bg=white}
+}
+
+\renewcommand{\maketitle}{
+	\begingroup
+	\setbeamertemplate{headline}{}
+	\setbeamertemplate{footline}{
+		\begin{beamercolorbox}[wd=\textwidth,ht=3mm,dp=1mm,rightskip=.5cm]{footline}
+			% \usebeamerfont{footline}\hfill\@footlinepayoff
+		\end{beamercolorbox}
+	}
+	\begin{frame}%
+		\titlepage%
+	\end{frame}%
+	\endgroup
+}
+
+\newcommand{\TikzSplitSlideChap}[4]{%
+	% #1 = filename
+	% #2 = size (scale factor)
+	% #3 = x position
+	% #4 = y position
+	\rule{0.4\paperwidth}{0pt}%
+	\begin{tikzpicture}
+		\clip (-0.1\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth, 0.5\paperheight) --
+		( 0.1\paperwidth, 0.5\paperheight) -- cycle;
+		\fill[color=white] (-0.1\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth,-0.5\paperheight) --
+		( 0.5\paperwidth, 0.5\paperheight) --
+		( 0.1\paperwidth, 0.5\paperheight) -- cycle;
+		\node at (#3,#4) {%
+			\includegraphics[height=#2\paperheight]{#1}%
+		};
+	\end{tikzpicture}
+}
+
+\newenvironment{tikzter}[5][]{
+	\section{#5} % <- this registers it in the ToC
+	\begingroup
+	\setbeamertemplate{headline}{\vspace{0.03\textwidth}\hspace{0.03\textwidth}\pgfuseimage{\@DESYlogowhite}}
+	\setbeamertemplate{footline}{}
+
+	\setbeamercolor{frametitle}{fg=white}
+	\setbeamercolor{normal text}{fg=white,bg=desybluedark}
+
+	% If the optional #1 (background image filename) is not empty, use TikzSplitSlideChap
+	\ifstrempty{#1}{}{\setbeamertemplate{background}{\TikzSplitSlideTikz{#1}{#2}{#3}{#4}}}
+
+	\setbeamertemplate{frametitle}{%
+		\hspace*{0.0125\textwidth}% alignment with logo
+		\begin{beamercolorbox}[wd=0.45\textwidth]{frametitle}
+			\usebeamerfont{frametitle}\insertframetitle\\[-8ex]
+			\usebeamerfont{framesubtitle}\insertframesubtitle
+		\end{beamercolorbox}
+	}
+
+	\begin{frame}{#5}
+		\hspace*{0.05\textwidth}%
+		\minipage{0.35\textwidth}%
+		\usebeamercolor[fg]{normal text}%
+		}{
+		\endminipage
+	\end{frame}
+	\endgroup
+	\usebeamercolor[fg]{normal text}
+}
+
+\newenvironment{chapter}[5][]{
+	\section{#5} % <- this registers it in the ToC
+	\begingroup
+	\setbeamertemplate{headline}{\vspace{0.03\textwidth}\hspace{0.03\textwidth}\pgfuseimage{\@DESYlogowhite}}
+	\setbeamertemplate{footline}{}
+
+	\setbeamercolor{frametitle}{fg=white}
+	\setbeamercolor{normal text}{fg=white,bg=desybluedark}
+
+	% If the optional #1 (background image filename) is not empty, use TikzSplitSlideChap
+	\ifstrempty{#1}{}{\setbeamertemplate{background}{\TikzSplitSlideChap{#1}{#2}{#3}{#4}}}
+
+	\setbeamertemplate{frametitle}{%
+		\hspace*{0.0125\textwidth}% alignment with logo
+		\begin{beamercolorbox}[wd=0.45\textwidth]{frametitle}
+			\usebeamerfont{frametitle}\insertframetitle\\[-8ex]
+			\usebeamerfont{framesubtitle}\insertframesubtitle
+		\end{beamercolorbox}
+	}
+
+	\begin{frame}{#5}
+		\hspace*{0.05\textwidth}%
+		\minipage{0.35\textwidth}%
+		\usebeamercolor[fg]{normal text}%
+		}{
+		\endminipage
+	\end{frame}
+	\endgroup
+	\usebeamercolor[fg]{normal text}
+}
+
+\newenvironment{sidepic}[2]{% Args: image, frame title
+	\begingroup
+	\setbeamertemplate{background}{%
+		\hspace*{0.6\paperwidth}%
+		\includegraphics[height=\paperheight]{#1}%
+	}
+	\setbeamertemplate{frametitle}{% Same as normal, but with right skip
+		\vspace*{-3.65ex}
+		\vspace*{\titlemanualoffset}
+		\begin{beamercolorbox}[leftskip=1cm,rightskip=0.4\textwidth]{frametitle}%
+			\usebeamerfont{frametitle}\insertframetitle\\
+			% Setting an invisible placeholder subtitle will fix the title in a constant position
+			% This is due to the way the default template is defined in `beamerouterthemedefault.sty'
+			\ifx\insertframesubtitle\empty
+				\usebeamerfont{framesubtitle}\usebeamercolor[bg]{normal text}Placeholder
+			\else
+				\usebeamerfont{framesubtitle}\textcolor{desyorangedark}\insertframesubtitle
+			\fi
+		\end{beamercolorbox}
+	}
+	\begin{frame}{#2}
+		\minipage{0.6\textwidth}%
+		}{%
+		\endminipage
+	\end{frame}
+	\endgroup
+}
+
+
