@@ -1,0 +1,11 @@
+# Core runtime dependencies for the qff_pricing package.
+# Tested against the versions below; newer minors should also work.
+numpy>=1.23
+scipy>=1.9
+matplotlib>=3.6
+qiskit>=1.0
+qiskit-aer>=0.14
+
+# Optional: enables "real" iterative amplitude estimation in qff_pricing.quantum.qmci.
+# If absent, the package falls back to exact statevector read-out of the amplitude.
+qiskit-algorithms>=0.3 ; python_version >= "3.9"
